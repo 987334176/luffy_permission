@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rbac.apps.RbacConfig',
-    'web.apps.WebConfig'
+    'web.apps.WebConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'web.middlewares.AuthMD',  # 自定义中间件AuthMD
 ]
 
 ROOT_URLCONF = 'luffy_permission.urls'
