@@ -43,7 +43,9 @@ class AuthView(ViewSetMixin,APIView):
                 # 增加session
                 request.session['user'] = obj.name
                 request.session['user_id'] = obj.id
-                request.session['url'] = permissions_list
+                # url去重,因为多个角色,url会重复
+                request.session['url'] = list(set(permissions_list))
+
 
         except Exception as e:
             response.code = 10005
