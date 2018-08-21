@@ -19,4 +19,10 @@
 或者使用命令
 `python manage.py runserver`
 
+## admin后台
+
+默认用户名xiao
+
+密码xiao1234
+
 Copyright (c) 2018-present, xiao You

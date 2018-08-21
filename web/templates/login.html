@@ -1,55 +1,17 @@
-{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
-    <script src="{% static 'plugins/sweetalert/sweetalert-dev.js' %} "></script>
-    <link rel="stylesheet" href="{% static 'plugins/sweetalert/sweetalert.css' %}">
 </head>
 <body>
-<div style="height: 100px;"></div>
-<form action="/auth/" method="post">
-    <lable>用户名</lable>
-    <input type="text" name="username" id="user">
-    <lable>密码</lable>
-    <input type="password" name="password" id="pwd">
-    <input type="button" id="sub" value="登录">
-</form>
-<script>
-    $("#sub").click(function () {
-        $.ajax({
-            url: "/auth/",
-            type: "post",
-            data: {
-                username: $("#user").val(),
-                password: $("#pwd").val(),
-            },
-            success: function (data) {
-                console.log(data);
-                if (data.code == 1000) { //判断json的状态
-                    swal({
-                        title: '登录成功',
-                        type: 'success',  //展示成功的图片
-                        timer: 500,  //延时500毫秒
-                        showConfirmButton: false  //关闭确认框
-                    }, function () {
-                        window.location.href = "/customer/list/";  //跳转
-                    });
-                } else {
-                    swal("登录失败！", data.error,
-                        "error");
-                    {#window.location = "/backend/add_category/";#}
-                }
-            },
-            error: function (data) {
-                console.log('登录异常');
-            }
-        })
+    <form method="post">
+        {% csrf_token %}
 
-    });
+        <input type="text" name="user">
+        <input type="password" name="pwd">
 
-</script>
+        <input type="submit" value="提交"> {{ msg }}
+    </form>
 </body>
 </html>

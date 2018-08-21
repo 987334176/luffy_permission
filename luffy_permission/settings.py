@@ -36,8 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rbac.apps.RbacConfig',
-    'web.apps.WebConfig',
-    'rest_framework',
+    'web.apps.WebConfig'
 ]
 
 MIDDLEWARE = [
@@ -48,7 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'web.middlewares.AuthMD',  # 自定义中间件AuthMD
+    'web.middleware.rbac.RbacMiddleware',
 ]
 
 ROOT_URLCONF = 'luffy_permission.urls'
@@ -163,6 +162,10 @@ FILE_UPLOAD_PERMISSIONS = None
 # 文件夹权限
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = None
 
-
-#########################权限相关#########################
+########################## 权限相关 #######################
 PERMISSION_SESSION_KEY = "permission_list"
+VALID_URL = [
+    '^/login/$',
+    '^/admin/.*',
+]
+
