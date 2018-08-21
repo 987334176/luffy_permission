@@ -41,6 +41,8 @@ class AuthView(ViewSetMixin,APIView):
                 response.code = 1000
 
                 # 增加session
+                request.session['user'] = obj.name
+                request.session['user_id'] = obj.id
                 request.session['url'] = permissions_list
 
         except Exception as e:
