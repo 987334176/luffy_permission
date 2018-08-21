@@ -16,10 +16,13 @@ class AuthMD(MiddlewareMixin):  # 验证登录
         # 判断请求路径不在白名单中
         if request_url not in self.white_list:
             import re
-            per_url = request.session.get("url")  # 获取用户session中的url列表
+            # 获取用户session中的url列表
+            per_url = request.session.get(settings.PERMISSION_SESSION_KEY)
             # print(per_url)
             if per_url:
                 for i in per_url:  # 循环url列表
+                    i = i.get('permissions__url')
+                    print(i)
                     # 使用正则匹配。其中i为正则表达式,request_url.lstrip('/')表示去除左边的'/'
                     result = re.match(i, request_url.lstrip('/'))
                     # print(result)

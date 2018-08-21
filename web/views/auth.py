@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSetMixin
 from rbac import models
 from utils.response import BaseResponse
+from django.conf import settings
 
 class AuthView(ViewSetMixin,APIView):
     authentication_classes = []  # 空列表表示不认证
@@ -25,26 +26,17 @@ class AuthView(ViewSetMixin,APIView):
             if not obj:  # 判断查询结果
                 response.code = 1002
                 response.error = '用户名或密码错误'
-            else:
-                role = obj.roles.all()  # 查询当前用户的所有角色
-                permissions_list = []  # 定义空列表
+                return Response(response.dict)
 
-                for i in role:  # 循环角色
-                    per = i.permissions.all()  # 查看当前用户所有角色的所有权限
-                    # print(i.permissions.all())
-                    for j in per:
-                        # print(j.url)
-                        # 将所有授权的url添加到列表中
-                        permissions_list.append(j.url)
+            # 过滤url为空的,使用distinct去重。因为用户有多个角色,存在url重复的情况
+            permission_list = obj.roles.filter(permissions__url__isnull=False).values("permissions__url").distinct()
 
-                # print(permissions_list)
-                response.code = 1000
+            response.code = 1000
 
-                # 增加session
-                request.session['user'] = obj.name
-                request.session['user_id'] = obj.id
-                # url去重,因为多个角色,url会重复
-                request.session['url'] = list(set(permissions_list))
+            # 增加session
+            request.session['user_info'] = {'id':obj.id,'name':obj.name}
+
+            request.session[settings.PERMISSION_SESSION_KEY] = list(permission_list)
 
 
         except Exception as e:

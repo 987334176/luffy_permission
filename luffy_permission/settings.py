@@ -162,3 +162,7 @@ FILE_UPLOAD_PERMISSIONS = None
 # see https://docs.python.org/3/library/os.html#files-and-directories.
 # 文件夹权限
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = None
+
+
+#########################权限相关#########################
+PERMISSION_SESSION_KEY = "permission_list"
