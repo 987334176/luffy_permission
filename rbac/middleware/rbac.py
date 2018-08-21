@@ -16,6 +16,7 @@ class RbacMiddleware(MiddlewareMixin):
         """
         # 1. 获取当前请求URL
         current_url = request.path_info
+        print(current_url)
 
         # 1.5 白名单处理
         for reg in settings.VALID_URL:
