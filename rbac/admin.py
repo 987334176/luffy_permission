@@ -1,9 +1,11 @@
 from django.contrib import admin
 from rbac import models
 
+admin.site.register(models.Menu)
+
 class PermissionAdmin(admin.ModelAdmin):
-    list_display = ['title','url']  # 显示的字段
-    list_editable = ['url']  # 允许编辑
+    list_display = ['title','url','parent','name']  # 显示的字段
+    list_editable = ['url','parent','name']  # 允许编辑
 
 admin.site.register(models.Permission,PermissionAdmin)
 

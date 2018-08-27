@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.css' %} "/>
     <link rel="stylesheet" href="{% static 'css/commons.css' %} "/>
     <link rel="stylesheet" href="{% static 'css/nav.css' %} "/>
+    <link rel="stylesheet" href="{% static 'rbac/rbac.css' %} "/>
     <style>
         body {
             margin: 0;
@@ -161,13 +162,9 @@
     </div>
     <div class="right-body">
         <div>
-            <ol class="breadcrumb no-radius no-margin" style="border-bottom: 1px solid #ddd;">
-
-                <li><a href="#">首页</a></li>
-                <li class="active">客户管理</li>
-
-            </ol>
+            {% breadcrumb request %}
         </div>
+
         {% block content %} {% endblock %}
     </div>
 </div>
@@ -175,6 +172,7 @@
 
 <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
 <script src="{% static 'plugins/bootstrap/js/bootstrap.js' %} "></script>
+<script src="{% static 'rbac/rbac.js' %} "></script>
 {% block js %} {% endblock %}
 </body>
 </html>
